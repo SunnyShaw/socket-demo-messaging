@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Socket.IO</title>
+</head>
+<body>
+  <form>
+    <input type="text" name="message" id="message" value="">
+    <button>Send</button>
+  </form>
+  <div class="massage-board">
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="/socket.io/socket.io.js" charset="utf-8"></script>
+  <script>
+    let socket = io()
+    $('form').submit(function () {
+      socket.emit('message', $('#message').val())
+      $('#message').val('')
+      return false
+    })
+
+    socket.on('message',function(message){
+      $('.massage-board').append($('<div>').text(message))
+    })
+
+  </script>
+</body>
+</html>
